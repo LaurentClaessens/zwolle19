@@ -1,7 +1,8 @@
 """Define the card package."""
 
+from tools import is_ok_line
 
-dprint = print
+dprint = print  #pylint: disable=invalid-name, unused-variable
 
 
 class Package:
@@ -27,19 +28,16 @@ class Package:
         No repetitions.
         """
         package0 = self
-        dprint("package0", package0.length())
         for card1 in package0:
             package1 = package0.remove_ident(card1.ident)
-            dprint("package1", package1.length())
             for card2 in package1:
                 package2 = package1.remove_ident(card2.ident)
-                dprint("package2", package2.length())
                 for card3 in package2:
                     yield([card1, card2, card3])
 
     def possible_lines(self):
         """Return the list of possible lines."""
-        for line in self.subset_three():
+        for line in self.subsets_three():
             if is_ok_line(line):
                 yield line
 

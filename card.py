@@ -1,6 +1,10 @@
 """Define a card."""
 
 
+# pylint: disable=too-many-arguments
+# pylint: disable=too-few-public-methods
+
+
 class Card:
     """
     Represent a small square.
@@ -13,7 +17,7 @@ class Card:
         """
         Initiate the square by giving its 'labels'.
 
-        The identifier is needed to identify the cards which are, 
+        The identifier is needed to identify the cards which are,
         in fact, the same after orientation variation. See the method
         `Package.subset_three`.
 
