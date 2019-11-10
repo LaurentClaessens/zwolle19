@@ -29,6 +29,7 @@ def do_work():
 
     print("Liste des résultats")
     for line1, line2, line3 in possible_three:
+        print("-----")
         show_triple(line1, line2, line3)
 
 do_work()

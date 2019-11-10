@@ -3,6 +3,27 @@
 dprint = print  #pylint: disable=invalid-name, unused-variable
 
 
+def is_coupled(label1, label2):
+    if label1 == "G" and label2 == "H":
+        return True
+    if label1 == "C" and label2 == "E":
+        return True
+    if label1 == "A" and label2 == "D":
+        return True
+    if label1 == "B" and label2 == "F":
+        return True
+
+    if label1 == "H" and label2 == "G":
+        return True
+    if label1 == "E" and label2 == "C":
+        return True
+    if label1 == "D" and label2 == "A":
+        return True
+    if label1 == "F" and label2 == "B":
+        return True
+    return False
+
+
 def is_ok_line(line):
     """
     Say if the given line is ok.
@@ -13,9 +34,36 @@ def is_ok_line(line):
     card2 = line[1]
     card3 = line[2]
 
-    if card1.east != card2.west:
+    if not is_coupled(card1.east, card2.west):
         return False
-    if card2.east != card3.west:
+    if not is_coupled(card2.east, card3.west):
+        return False
+    return True
+
+
+def is_ok_two_lines(line1, line2):
+    """
+    Say if `line2` can be bellow `line1`
+
+    - check that the two lines do not contain the same identifiers
+    - check that the labels match
+    """
+    card1 = line1[0]
+    card2 = line1[1]
+    card3 = line1[2]
+    card4 = line2[0]
+    card5 = line2[1]
+    card6 = line2[2]
+    idents1 = [card.ident for card in line1]
+    idents2 = [card.ident for card in line2]
+    intersection = list(set(idents1) & set(idents2))
+    if intersection:
+        return False
+    if not is_coupled(card1.south, card4.north):
+        return False
+    if not is_coupled(card2.south, card5.north):
+        return False
+    if not is_coupled(card3.south, card6.north):
         return False
     return True
 
@@ -59,40 +107,12 @@ def is_ok_three_lines(line1, line2, line3):
     print("??????????????")
 
     if not is_ok_two_lines(line1, line2):
-        dprint("pas ok 12")
         return False
     if not is_ok_two_lines(line2, line3):
-        dprint("pas ok 23")
         return False
 
     return True
 
-
-def is_ok_two_lines(line1, line2):
-    """
-    Say if `line2` can be bellow `line1`
-
-    - check that the two lines do not contain the same identifiers
-    - check that the labels match
-    """
-    card1 = line1[0]
-    card2 = line1[1]
-    card3 = line1[2]
-    card4 = line2[0]
-    card5 = line2[1]
-    card6 = line2[2]
-    idents1 = [card.ident for card in line1]
-    idents2 = [card.ident for card in line2]
-    intersection = list(set(idents1) & set(idents2))
-    if intersection:
-        return False
-    if card1.south != card4.north:
-        return False
-    if card2.south != card5.north:
-        return False
-    if card3.south != card6.north:
-        return False
-    return True
 
 def show_double(line1, line2):
     """Show the two lines."""

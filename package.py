@@ -4,6 +4,7 @@ from tools import is_ok_line
 from tools import is_ok_two_lines
 from tools import is_ok_three_lines
 from tools import show_double
+from tools import show_triple
 
 dprint = print  #pylint: disable=invalid-name, unused-variable
 
@@ -80,6 +81,7 @@ class Package:
             package1 = package0.remove_cards(line1)
             for line2 in package1.possible_lines():
                 if not is_ok_two_lines(line1, line2):
+                    show_double(line1, line2)
                     continue
                 package2 = package1.remove_cards(line2)
                 for line3 in package2.possible_lines():
