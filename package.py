@@ -1,6 +1,9 @@
 """Define the card package."""
 
 from tools import is_ok_line
+from tools import is_ok_two_lines
+from tools import is_ok_three_lines
+from tools import show_double
 
 dprint = print  #pylint: disable=invalid-name, unused-variable
 
@@ -37,9 +40,36 @@ class Package:
 
     def possible_lines(self):
         """Return the list of possible lines."""
+        lines = []
         for line in self.subsets_three():
             if is_ok_line(line):
-                yield line
+                lines.append(line)
+        return lines
+
+    def possible_two_lines(self):
+        """
+        Return the possible blocks of two lines.
+
+        Each element is a tuple of 2 list of cards.
+        """
+        doubles = []
+        for line1 in self.possible_lines():
+            for line2 in self.possible_lines():
+                if is_ok_two_lines(line1, line2):
+                    show_double(line1, line2)
+                    doubles.append((line1, line2))
+        return doubles
+
+    def possible_three_lines(self):
+        """Return the list of possible 3 lines."""
+        triples = []
+        for line1, line2 in self.possible_two_lines():
+            show_double(line1, line2)
+            for line3 in self.possible_lines():
+                if is_ok_three_lines(line1, line2, line3):
+                    print("Une de trouvé")
+                    triples.append((line1, line2, line3))
+        return triples
 
     def remove_ident(self, ident):
         """Return a new package, with the given ident removed."""

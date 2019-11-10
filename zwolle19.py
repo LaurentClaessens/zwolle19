@@ -4,26 +4,28 @@
 
 from card import Card
 from package import Package
+from tools import show_triple
+
+dprint = print  #pylint: disable=invalid-name, unused-variable
 
 
 def do_work():
     """Do the brute force work."""
     package = Package(
         [
-            Card(1, "S jaune", "L blanche", "S orange", "L mauve"),
-            Card(2, "S jaune", "L bleue", "L verte", "S rouge"),
-            Card(3, "S orange", "L verte", "L bleue", "S rouge"),
-            Card(4, "L verte", "S noir", "S orange", "L blanche"),
-            Card(5, "L verte", "S noir", "L blanche", "S rouge"),
-            Card(6, "S jaune", "L blanche", "S jaune", "L bleue"),
-            Card(7, "S orange", "L blanche", "L blanche", "S rouge"),
-            Card(8, "S orange", "L bleue", "S noir", "L mauve"),
-            Card(9, "L bleue", "S rouge", "L mauve", "S jaune")
+            Card(1, "A", "E", "B", "D"),
+            Card(2, "A", "F", "H", "G"),
+            Card(3, "B", "H", "F", "G"),
+            Card(4, "E", "B", "H", "C"),
+            Card(5, "G", "E", "H", "C"),
+            Card(6, "E", "G", "D", "A"),
+            Card(7, "B", "E", "E", "G"),
+            Card(8, "B", "F", "C", "D"),
+            Card(9, "A", "E", "A", "F")
         ]
     )
 
-    print("Les lignes")
-    for line in package.possible_lines():
-        print(line[0].ident, line[1].ident, line[2].ident)
+    for line1, line2, line3 in package.possible_three_lines():
+        show_triple(line1, line2, line3)
 
 do_work()

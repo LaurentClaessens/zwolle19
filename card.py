@@ -13,29 +13,31 @@ class Card:
     the possible orientations, we will just duplicate the squares.
     """
 
-    def __init__(self, ident, north, south, east, west):
+    def __init__(self, ident, north, south, west, east):
         """
         Initiate the square by giving its 'labels'.
 
         The identifier is needed to identify the cards which are,
         in fact, the same after orientation variation. See the method
         `Package.subset_three`.
-
         """
         self.ident = ident
         self.north = north
         self.south = south
-        self.east = east
         self.west = west
+        self.east = east
 
     def variations(self):
         """Return the list of 4 square with different orientations"""
         return [Card(self.ident, self.north, self.south,
-                     self.east, self.west),
-                Card(self.ident, self.east, self.west,
-                     self.south, self.north),
-                Card(self.ident, self.south, self.north,
                      self.west, self.east),
                 Card(self.ident, self.west, self.east,
+                     self.south, self.north),
+                Card(self.ident, self.south, self.north,
+                     self.east, self.west),
+                Card(self.ident, self.east, self.west,
                      self.north, self.south)
                 ]
+
+    def __str__(self):
+        return f"{self.ident}({self.north}, {self.south}, {self.west}, {self.east})"
