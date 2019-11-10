@@ -53,10 +53,10 @@ class Package:
         Each element is a tuple of 2 list of cards.
         """
         doubles = []
-        for line1 in self.possible_lines():
-            for line2 in self.possible_lines():
+        possible_lines = self.possible_lines()
+        for line1 in possible_lines:
+            for line2 in possible_lines:
                 if is_ok_two_lines(line1, line2):
-                    show_double(line1, line2)
                     doubles.append((line1, line2))
         return doubles
 

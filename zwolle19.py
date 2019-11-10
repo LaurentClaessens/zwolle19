@@ -25,7 +25,10 @@ def do_work():
         ]
     )
 
-    for line1, line2, line3 in package.possible_three_lines():
+    possible_three = package.possible_three_lines()
+
+    print("Liste des résultats")
+    for line1, line2, line3 in possible_three:
         show_triple(line1, line2, line3)
 
 do_work()
