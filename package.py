@@ -60,15 +60,34 @@ class Package:
                     doubles.append((line1, line2))
         return doubles
 
+    def copy(self):
+        """Return a copy of self."""
+        return Package(self.base_list)
+
+    def remove_cards(self, card_list):
+        """Remove all the cards in the list."""
+        new_package = self.copy()
+        for card in card_list:
+            new_package = new_package.remove_ident(card.ident)
+        return new_package
+
     def possible_three_lines(self):
         """Return the list of possible 3 lines."""
+        possible_lines = self.possible_lines()
         triples = []
-        for line1, line2 in self.possible_two_lines():
-            show_double(line1, line2)
-            for line3 in self.possible_lines():
-                if is_ok_three_lines(line1, line2, line3):
-                    print("Une de trouvé")
-                    triples.append((line1, line2, line3))
+        package0 = self
+        for line1 in package0.possible_lines():
+            package1 = package0.remove_cards(line1)
+            for line2 in package1.possible_lines():
+                if not is_ok_two_lines(line1, line2):
+                    continue
+                package2 = package1.remove_cards(line2)
+                for line3 in package2.possible_lines():
+                    if not is_ok_three_lines(line1, line2, line3):
+                        continue
+                    print("trouvé")
+                    show_triple(line1, line2, line3)
+                    triples.append([line1, line2, line3])
         return triples
 
     def remove_ident(self, ident):
