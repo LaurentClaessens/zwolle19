@@ -4,25 +4,14 @@ dprint = print  #pylint: disable=invalid-name, unused-variable
 
 
 def is_coupled(label1, label2):
-    if label1 == "G" and label2 == "H":
-        return True
-    if label1 == "C" and label2 == "E":
-        return True
-    if label1 == "A" and label2 == "D":
-        return True
-    if label1 == "B" and label2 == "F":
-        return True
+    """Say if the given two labels are coupled."""
+    #couples = [{"G", "H"}, {"C", "E"}, {"A", "D"}, {"B", "F"}]
+    couples = [{"G", "H"}, {"C", "D"}, {"A", "E"}, {"B", "F"}]
 
-    if label1 == "H" and label2 == "G":
-        return True
-    if label1 == "E" and label2 == "C":
-        return True
-    if label1 == "D" and label2 == "A":
-        return True
-    if label1 == "F" and label2 == "B":
-        return True
+    for couple in couples:
+        if {label1, label2} in couples:
+            return True
     return False
-
 
 def is_ok_line(line):
     """
@@ -138,6 +127,9 @@ def show_triple(line1, line2, line3):
     card7 = line3[0]
     card8 = line3[1]
     card9 = line3[2]
+    print(card1.ident, card2.ident, card3.ident)
+    print(card4.ident, card5.ident, card6.ident)
+    print(card7.ident, card8.ident, card9.ident)
     print(card1, card2, card3)
     print(card4, card5, card6)
     print(card7, card8, card9)
