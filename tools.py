@@ -5,8 +5,8 @@ dprint = print  #pylint: disable=invalid-name, unused-variable
 
 def is_coupled(label1, label2):
     """Say if the given two labels are coupled."""
-    #couples = [{"G", "H"}, {"C", "E"}, {"A", "D"}, {"B", "F"}]
-    couples = [{"G", "H"}, {"C", "D"}, {"A", "E"}, {"B", "F"}]
+    couples = [{"G", "H"}, {"C", "E"}, {"A", "D"}, {"B", "F"}]
+    #couples = [{"G", "H"}, {"C", "D"}, {"A", "E"}, {"B", "F"}]
 
     for couple in couples:
         if {label1, label2} in couples:
